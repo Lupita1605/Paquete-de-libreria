@@ -48,4 +48,6 @@ public class UserManagementGUI {
         JButton listButton = new JButton("Listar Usuarios"); // Crea el botón para listar usuarios
 
         // Área de texto para mostrar la lista de usuarios
-        userListArea = new JTextArea(10, 30
+        userListArea = new JTextArea(10, 30);
+    }
+}
