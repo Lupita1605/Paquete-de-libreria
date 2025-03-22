@@ -1,121 +1,51 @@
-package com.example.gui;
+package com.example.gui; // Define el paquete donde se encuentra la clase UserManagementGUI
 
-import com.example.manager.UserManager;
-import com.example.model.User;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.example.manager.UserManager; // Importa la clase UserManager
+import com.example.model.User; // Importa la clase User
+import javax.swing.*; // Importa las clases de Swing para la interfaz gráfica
+import java.awt.*; // Importa las clases de AWT para el diseño de la interfaz gráfica
+import java.awt.event.ActionEvent; // Importa la clase ActionEvent para manejar eventos
+import java.awt.event.ActionListener; // Importa la clase ActionListener para manejar eventos
 
+/**
+ * Clase que representa la interfaz gráfica de gestión de usuarios.
+ */
 public class UserManagementGUI {
-    private UserManager userManager;
-    private JTextField firstNameField;
-    private JTextField lastNameField;
-    private JTextField phoneField;
-    private JTextField emailField;
-    private JTextField ageField;
-    private JTextArea userListArea;
-
+    private UserManager userManager; // Instancia de UserManager para gestionar los usuarios
+    private JTextField firstNameField; // Campo de texto para el primer nombre
+    private JTextField lastNameField; // Campo de texto para el apellido
+    private JTextField phoneField; // Campo de texto para el teléfono
+    private JTextField emailField; // Campo de texto para el correo electrónico
+    private JTextField ageField; // Campo de texto para la edad
+    private JTextArea userListArea; // Área de texto para mostrar la lista de usuarios
+    /**
+     * Constructor de la clase UserManagementGUI.
+     * Inicializa la instancia de UserManager y crea la interfaz gráfica.
+     */
     public UserManagementGUI() {
-        userManager = new UserManager();
-        createGUI();
+        userManager = new UserManager(); // Inicializa la instancia de UserManager
+        createGUI(); // Llama al método createGUI para crear la interfaz gráfica
     }
 
+    /**
+     * Método para crear la interfaz gráfica.
+     */
     private void createGUI() {
-        JFrame frame = new JFrame("User  Management System");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        frame.setLayout(new FlowLayout());
-
+        JFrame frame = new JFrame("User Management System"); // Crea el marco de la interfaz gráfica
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Establece la operación de cierre
+        frame.setSize(400, 400); // Establece el tamaño del marco
+        frame.setLayout(new FlowLayout()); // Establece el diseño del marco
         // Campos de entrada
-        firstNameField = new JTextField(10);
-        lastNameField = new JTextField(10);
-        phoneField = new JTextField(10);
-        emailField = new JTextField(10);
-        ageField = new JTextField(3);
+        firstNameField = new JTextField(10); // Crea el campo de texto para el primer nombre
+        lastNameField = new JTextField(10); // Crea el campo de texto para el apellido
+        phoneField = new JTextField(10); // Crea el campo de texto para el teléfono
+        emailField = new JTextField(10); // Crea el campo de texto para el correo electrónico
+        ageField = new JTextField(3); // Crea el campo de texto para la edad
 
         // Botones
-        JButton addButton = new JButton("Agregar Usuario");
-        JButton removeButton = new JButton("Eliminar Usuario");
-        JButton listButton = new JButton("Listar Usuarios");
+        JButton addButton = new JButton("Agregar Usuario"); // Crea el botón para agregar usuario
+        JButton removeButton = new JButton("Eliminar Usuario"); // Crea el botón para eliminar usuario
+        JButton listButton = new JButton("Listar Usuarios"); // Crea el botón para listar usuarios
 
         // Área de texto para mostrar la lista de usuarios
-        userListArea = new JTextArea(10, 30);
-        userListArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(userListArea);
-
-        // Agregar componentes al marco
-        frame.add(new JLabel("Nombre:"));
-        frame.add(firstNameField);
-        frame.add(new JLabel("Apellido:"));
-        frame.add(lastNameField);
-        frame.add(new JLabel("Teléfono:"));
-        frame.add(phoneField);
-        frame.add(new JLabel("Correo:"));
-        frame.add(emailField);
-        frame.add(new JLabel("Edad:"));
-        frame.add(ageField);
-        frame.add(addButton);
-        frame.add(removeButton);
-        frame.add(listButton);
-        frame.add(scrollPane);
-
-        // Acción para agregar usuario
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String firstName = firstNameField.getText();
-                String lastName = lastNameField.getText();
-                String phone = phoneField.getText();
-                String email = emailField.getText();
-                int age = Integer.parseInt(ageField.getText());
-
-                User user = new User(firstName, lastName, phone, email, age);
-                userManager.addUser (user);
-                clearFields();
-                JOptionPane.showMessageDialog(frame, "Usuario agregado.");
-            }
-        });
-
-        // Acción para eliminar usuario
-        removeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String email = emailField.getText();
-                userManager.removeUser (email);
-                clearFields();
-                JOptionPane.showMessageDialog(frame, "Usuario eliminado.");
-            }
-        });
-
-        // Acción para listar usuarios
-        listButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                userListArea.setText(""); // Limpiar el área de texto
-                for (User  user : userManager.listUsers()) {
-                    userListArea.append("Nombre: " + user.getFirstName() + " " + user.getLastName() + "\n");
-                    userListArea.append("Teléfono: " + user.getPhone() + "\n");
-                    userListArea.append("Correo: " + user.getEmail() + "\n");
-                    userListArea.append("Edad: " + user.getAge() + "\n");
-                    userListArea.append("-------------------------\n");
-                }
-            }
-        });
-
-        // Hacer visible el marco
-        frame.setVisible(true);
-    }
-
-    private void clearFields() {
-        firstNameField.setText("");
-        lastNameField.setText("");
-        phoneField.setText("");
-        emailField.setText("");
-        ageField.setText("");
-    }
-
-    public static void main(String[] args) {
-        new UserManagementGUI();
-    }
-}
+        userListArea = new JTextArea(10, 30
